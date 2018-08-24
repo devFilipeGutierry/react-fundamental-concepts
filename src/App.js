@@ -43,6 +43,14 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
+  deletePersonHandler = (personIndex) => {
+    //const persons = this.state.persons; -> This is a bad approach because this is a pointer of our state. 
+    //const persons = this.state.persons.slice(); -> This is a good approach because we are manipulating a copy of our state
+    const persons = [...this.state.persons]; //This is a modern approach ES6. We are spreading our elements of old array into a new one
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons })
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -56,17 +64,18 @@ class App extends Component {
 
     if (this.state.showPersons) {
       persons = (
-          <section>
-            {
-              this.state.persons.map(person => {
-                return <Person
-                  name={person.name}
-                  age={person.age}>
-                  <Profession title={person.profession}></Profession>
-                </Person>
-              })
-            }
-          </section>
+        <section>
+          {
+            this.state.persons.map((person, index) => {
+              return <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}>
+                <Profession title={person.profession}></Profession>
+              </Person>
+            })
+          }
+        </section>
       );
     }
 
