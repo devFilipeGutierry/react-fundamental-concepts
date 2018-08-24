@@ -5,7 +5,6 @@ import Person from './components/Person/Person'
 import Profession from './components/Profession/Profession'
 
 class App extends Component {
-
   state = {
     persons: [
       { name: 'Philipe Ferreira', age: '25', profession: 'Software Developer' },
@@ -45,7 +44,6 @@ class App extends Component {
   }
 
   render() {
-
     const style = {
       backgroundColor: 'white',
       font: 'inherit',
@@ -58,22 +56,17 @@ class App extends Component {
 
     if (this.state.showPersons) {
       persons = (
-        <section>
-          <Person myClickFunction={this.switchNameHandler.bind(this, 'Testing')}
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            changed={this.nameChangedHandler}>
-            <Profession profession={this.state.persons[0].profession}></Profession>
-          </Person>
-
-          <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>
-            <Profession profession={this.state.persons[1].profession}></Profession>
-          </Person>
-
-          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>
-            <Profession profession={this.state.persons[2].profession}></Profession>
-          </Person>
-        </section>
+          <section>
+            {
+              this.state.persons.map(person => {
+                return <Person
+                  name={person.name}
+                  age={person.age}>
+                  <Profession title={person.profession}></Profession>
+                </Person>
+              })
+            }
+          </section>
       );
     }
 
