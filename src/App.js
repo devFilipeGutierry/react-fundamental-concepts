@@ -54,6 +54,29 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <section>
+          <Person myClickFunction={this.switchNameHandler.bind(this, 'Testing')}
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            changed={this.nameChangedHandler}>
+            <Profession profession={this.state.persons[0].profession}></Profession>
+          </Person>
+
+          <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>
+            <Profession profession={this.state.persons[1].profession}></Profession>
+          </Person>
+
+          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>
+            <Profession profession={this.state.persons[2].profession}></Profession>
+          </Person>
+        </section>
+      );
+    }
+
     return (
       <div className="App">
         <h1>App</h1>
@@ -62,25 +85,7 @@ class App extends Component {
         <br />
         <br />
         <button style={style} onClick={this.togglePersonsHandler}>Hide/Show</button>
-        {
-          this.state.showPersons ?
-            <section>
-              <Person myClickFunction={this.switchNameHandler.bind(this, 'Testing')}
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}
-                changed={this.nameChangedHandler}>
-                <Profession profession={this.state.persons[0].profession}></Profession>
-              </Person>
-
-              <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>
-                <Profession profession={this.state.persons[1].profession}></Profession>
-              </Person>
-
-              <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>
-                <Profession profession={this.state.persons[2].profession}></Profession>
-              </Person>
-            </section> : null
-        }
+        {persons}
       </div>
     );
   }
